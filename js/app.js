@@ -61,6 +61,10 @@ const agregarTweet = (event) => {
   }
 
   eliminarAlerta();
+
+  tweetsLocal = [...tweetsLocal, tweet];
+
+  enviarTweetsLocalStorage(tweetsLocal);
 };
 
 
@@ -89,6 +93,15 @@ const eliminarAlerta = () => {
   if (alerta) alerta.remove();
 };
 
+
+
+
+
+//  Enviar tweets a Local Storage
+const enviarTweetsLocalStorage = (tweetsLocal) => {
+
+  localStorage.setItem('tweets', JSON.stringify(tweetsLocal));
+};
 
 
 
