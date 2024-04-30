@@ -86,10 +86,15 @@ const eliminarAlerta = () => {
 
 
 //  Enviar tweets a Local Storage
-const enviarTweetsLocalStorage = (tweet) => {
+const enviarTweetsLocalStorage = (dinamycTweet) => {
+  if (Array.isArray(dinamycTweet)) {
+    localStorage.setItem('tweets', JSON.stringify(dinamycTweet));
+    return
+  }
+
   const tweetsStorage = obtenerTweetsStorage();
-  const newTweetsStorage = [...tweetsStorage, tweet];
-  localStorage.setItem('tweets', JSON.stringify(newTweetsStorage));
+  const dinamycTweets = [...tweetsStorage, dinamycTweet];
+  localStorage.setItem('tweets', JSON.stringify(dinamycTweets));
 };
 
 
@@ -113,8 +118,7 @@ const eliminarTweet = (event) => {
     const tweet = event.target.parentElement.textContent.slice(0, -1);
     const newTweetsStorage = obtenerTweetsStorage().filter((tweetName) => tweetName !== tweet);
 
-    localStorage.setItem('tweets', JSON.stringify(newTweetsStorage));
-
+    enviarTweetsLocalStorage(newTweetsStorage);
     listarTweets();
   }
 };
