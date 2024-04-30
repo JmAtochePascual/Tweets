@@ -2,7 +2,6 @@
 const tweetInputElement = document.querySelector('#tweet');
 const listaTweetElement = document.querySelector('#lista-tweets');
 const formularioElement = document.querySelector('#formulario');
-let tweetsLocal = [];
 
 
 
@@ -10,7 +9,7 @@ let tweetsLocal = [];
 // Funciones
 // Obtener tweets del local storage
 const obtenerTweetsStorage = () => {
-  const tweetsStorage = localStorage.getItem('tweets') || [];
+  const tweetsStorage = JSON.parse(localStorage.getItem('tweets')) || [];
 
   listarTweets(tweetsStorage);
 };
@@ -21,6 +20,8 @@ const obtenerTweetsStorage = () => {
 
 // Lista los tweets
 const listarTweets = (tweetsStorage) => {
+
+  limpiarHtml();
 
   if (tweetsStorage.length) {
 
@@ -62,9 +63,11 @@ const agregarTweet = (event) => {
 
   eliminarAlerta();
 
-  tweetsLocal = [...tweetsLocal, tweet];
+  const newtweetsLocal = [...JSON.parse(localStorage.getItem('tweets')), tweet];
 
-  enviarTweetsLocalStorage(tweetsLocal);
+  enviarTweetsLocalStorage(newtweetsLocal);
+
+  obtenerTweetsStorage();
 };
 
 
@@ -101,6 +104,16 @@ const eliminarAlerta = () => {
 const enviarTweetsLocalStorage = (tweetsLocal) => {
 
   localStorage.setItem('tweets', JSON.stringify(tweetsLocal));
+};
+
+
+
+
+// Limpia el html de los tweets mostrados en pantalla
+const limpiarHtml = () => {
+  while (listaTweetElement.firstChild) {
+    listaTweetElement.firstChild.remove();
+  }
 };
 
 
