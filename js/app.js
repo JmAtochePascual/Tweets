@@ -18,6 +18,8 @@ const obtenerTweetsStorage = () => {
 
 
 
+
+// Lista los tweets
 const listarTweets = (tweetsStorage) => {
 
   if (tweetsStorage.length) {
@@ -45,6 +47,8 @@ const listarTweets = (tweetsStorage) => {
 
 
 
+
+// agregar tweet a Local Storage
 const agregarTweet = (event) => {
 
   event.preventDefault();
@@ -55,11 +59,15 @@ const agregarTweet = (event) => {
     mostarAlert('El tweet no puede estar vacío');
     return;
   }
+
+  eliminarAlerta();
 };
 
 
 
 
+
+// Muestra un mensaje de error
 const mostarAlert = (mensaje) => {
 
   const alerta = document.createElement('p');
@@ -73,6 +81,18 @@ const mostarAlert = (mensaje) => {
 
 
 
+// Elimina el mensaje de error
+const eliminarAlerta = () => {
+
+  const alerta = document.querySelector('.error');
+
+  if (alerta) alerta.remove();
+};
+
+
+
+
+// Eventos
 document.addEventListener('DOMContentLoaded', () => {
 
   obtenerTweetsStorage();
