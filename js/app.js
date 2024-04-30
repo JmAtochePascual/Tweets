@@ -45,9 +45,39 @@ const listarTweets = (tweetsStorage) => {
 
 
 
+const agregarTweet = (event) => {
+
+  event.preventDefault();
+
+  const tweet = tweetInputElement.value;
+
+  if (tweet.trim() === '') {
+    mostarAlert('El tweet no puede estar vacío');
+    return;
+  }
+};
+
+
+
+
+const mostarAlert = (mensaje) => {
+
+  const alerta = document.createElement('p');
+  alerta.classList.add('error');
+  alerta.textContent = mensaje;
+
+  formularioElement.appendChild(alerta);
+};
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
   obtenerTweetsStorage();
+
+  formularioElement.addEventListener('submit', agregarTweet);
 
 });
 
