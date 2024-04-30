@@ -56,9 +56,11 @@ const agregarTweet = (event) => {
 
   eliminarAlerta();
 
-  enviarTweetsLocalStorage(tweet);
+  const tweetsStorage = obtenerTweetsStorage();
 
-  const newTweetsStrage = obtenerTweetsStorage();
+  const newTweetsStrage = [...tweetsStorage, tweet];
+
+  enviarTweetsLocalStorage(newTweetsStrage);
 
   listarTweets(newTweetsStrage);
 
@@ -91,10 +93,7 @@ const eliminarAlerta = () => {
 
 //  Enviar tweets a Local Storage
 const enviarTweetsLocalStorage = (tweet) => {
-  const tweetsStorage = obtenerTweetsStorage();
-  const newTweetsStrage = [...tweetsStorage, tweet];
-
-  localStorage.setItem('tweets', JSON.stringify(newTweetsStrage));
+  localStorage.setItem('tweets', JSON.stringify(tweet));
 };
 
 
@@ -111,12 +110,25 @@ const limpiarInput = () => {
   tweetInputElement.value = '';
 };
 
-// Eventos
+
+// Elimina un tweet
+const eliminarTweet = (event) => {
+  if (event.target.className === 'borrar-tweet') {
+    const tweet = event.target.parentElement.textContent.slice(0, -1);
+    const newTweetsStorage = obtenerTweetsStorage().filter((tweetName) => tweetName !== tweet);
+
+    enviarTweetsLocalStorage(newTweetsStorage);
+
+    listarTweets(newTweetsStorage);
+  }
+};
+
+
+// Carga los eventos
 document.addEventListener('DOMContentLoaded', () => {
 
   obtenerTweetsStorage();
-
   formularioElement.addEventListener('submit', agregarTweet);
-
+  listaTweetElement.addEventListener('click', eliminarTweet);
 });
 
