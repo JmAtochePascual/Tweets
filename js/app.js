@@ -20,19 +20,28 @@ const obtenerTweetsStorage = () => {
 
 const listarTweets = (tweetsStorage) => {
 
-  tweetsStorage.forEach((tweet) => {
-    const botonEliminar = document.createElement('p');
-    botonEliminar.classList.add('borrar-tweet');
-    botonEliminar.innerText = 'X';
+  if (tweetsStorage.length) {
 
-    const li = document.createElement('li');
-    li.innerText = tweet;
-    li.appendChild(botonEliminar);
+    tweetsStorage.forEach((tweet) => {
+      const botonEliminar = document.createElement('p');
+      botonEliminar.classList.add('borrar-tweet');
+      botonEliminar.innerText = 'X';
 
-    listaTweetElement.appendChild(li);
-  });
+      const li = document.createElement('li');
+      li.innerText = tweet;
+      li.appendChild(botonEliminar);
 
-}
+      listaTweetElement.appendChild(li);
+    });
+
+    return;
+  }
+
+  const mensaje = document.createElement('p');
+  mensaje.innerText = 'No hay tweets para mostrar';
+  listaTweetElement.appendChild(mensaje);
+};
+
 
 
 
