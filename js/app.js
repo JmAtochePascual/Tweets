@@ -10,17 +10,14 @@ const formularioElement = document.querySelector('#formulario');
 // Obtener tweets del local storage
 const obtenerTweetsStorage = () => {
   const tweetsStorage = JSON.parse(localStorage.getItem('tweets')) || [];
-
   listarTweets(tweetsStorage);
+
+  return tweetsStorage;
 };
-
-
-
 
 
 // Lista los tweets
 const listarTweets = (tweetsStorage) => {
-
   limpiarHtml();
 
   if (tweetsStorage.length) {
@@ -46,37 +43,37 @@ const listarTweets = (tweetsStorage) => {
 };
 
 
-
-
-
 // agregar tweet a Local Storage
 const agregarTweet = (event) => {
-
   event.preventDefault();
 
   const tweet = tweetInputElement.value;
 
-  if (tweet.trim() === '') {
+  if (!validarTweet(tweet)) {
     mostarAlert('El tweet no puede estar vacío');
     return;
   }
 
   eliminarAlerta();
 
-  const newtweetsLocal = [...JSON.parse(localStorage.getItem('tweets')), tweet];
+  enviarTweetsLocalStorage(tweet);
 
-  enviarTweetsLocalStorage(newtweetsLocal);
+  const newTweetsStrage = obtenerTweetsStorage();
 
-  obtenerTweetsStorage();
+  listarTweets(newTweetsStrage);
+
+  limpiarInput();
 };
 
 
-
+// Valida que el tweet no esté vacío
+const validarTweet = (tweet) => {
+  return tweet.trim() != '' ? true : false;
+};
 
 
 // Muestra un mensaje de error
 const mostarAlert = (mensaje) => {
-
   const alerta = document.createElement('p');
   alerta.classList.add('error');
   alerta.textContent = mensaje;
@@ -85,28 +82,20 @@ const mostarAlert = (mensaje) => {
 };
 
 
-
-
-
 // Elimina el mensaje de error
 const eliminarAlerta = () => {
-
   const alerta = document.querySelector('.error');
-
   if (alerta) alerta.remove();
 };
 
 
-
-
-
 //  Enviar tweets a Local Storage
-const enviarTweetsLocalStorage = (tweetsLocal) => {
+const enviarTweetsLocalStorage = (tweet) => {
+  const tweetsStorage = obtenerTweetsStorage();
+  const newTweetsStrage = [...tweetsStorage, tweet];
 
-  localStorage.setItem('tweets', JSON.stringify(tweetsLocal));
+  localStorage.setItem('tweets', JSON.stringify(newTweetsStrage));
 };
-
-
 
 
 // Limpia el html de los tweets mostrados en pantalla
@@ -117,6 +106,10 @@ const limpiarHtml = () => {
 };
 
 
+//  Limpia el input de los tweets
+const limpiarInput = () => {
+  tweetInputElement.value = '';
+};
 
 // Eventos
 document.addEventListener('DOMContentLoaded', () => {
