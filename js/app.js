@@ -7,11 +7,12 @@ import {
   generarId,
   listarTweets,
   mostrarAlerta,
-  validarTweet
+  validarTweet,
+  actualizarLocalStorage
 } from './funciones.js';
 
-// Variables
-let tweets = [];
+// Variables 
+let tweets = JSON.parse(localStorage.getItem('tweets')) || [];
 
 
 // Funcion que inicializa la aplicacion
@@ -38,6 +39,9 @@ function init(e) {
   // Agregar tweet al array de tweets
   tweets = [...tweets, tweet.getTweet()];
 
+  // Actualizar local storage
+  actualizarLocalStorage(tweets);
+
 
   // listar tweets
   listarTweets(tweets);
@@ -46,10 +50,14 @@ function init(e) {
   formularioElement.reset();
 }
 
+
 // Eliminar tweet
 function eliminarTweet(id) {
   tweets = tweets.filter(tweet => tweet.id !== id);
   listarTweets(tweets);
+
+  // Actualizar local storage
+  actualizarLocalStorage(tweets);
 }
 
 
@@ -58,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   formularioElement.addEventListener('submit', init);
   listarTweets(tweets);
 });
+
 
 export {
   eliminarTweet
