@@ -36,6 +36,15 @@ const listarTweets = (tweets) => {
   // Limpiar html
   limpiarHtml();
 
+  // mostrar mensaje si no hay tweets
+  if (tweets.length === 0) {
+    const mensaje = document.createElement('p');
+    mensaje.textContent = 'No hay tweets';
+    mensaje.classList.add('mensaje');
+    listaTweetElement.appendChild(mensaje);
+    return;
+  }
+
   tweets.forEach(tweet => {
     const { titulo, id } = tweet;
 

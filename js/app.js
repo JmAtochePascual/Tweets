@@ -1,6 +1,5 @@
 import Tweet from './Tweet.js';
 import {
-  listaTweetElement,
   tweetInputElement,
   formularioElement
 } from './elemetos.js';
@@ -57,6 +56,7 @@ function eliminarTweet(id) {
 // Eventos
 document.addEventListener('DOMContentLoaded', () => {
   formularioElement.addEventListener('submit', init);
+  listarTweets(tweets);
 });
 
 export {
