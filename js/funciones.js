@@ -1,3 +1,4 @@
+import { eliminarTweet } from "./app.js";
 import { formularioElement, listaTweetElement } from "./elemetos.js";
 
 
@@ -50,6 +51,9 @@ const listarTweets = (tweets) => {
     btnEliminar.textContent = 'x';
     btnEliminar.classList.add('borrar-tweet');
     btnEliminar.href = '#';
+    btnEliminar.onclick = () => {
+      eliminarTweet(id);
+    };
 
 
     // Agregar contenido al li

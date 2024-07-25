@@ -42,6 +42,15 @@ function init(e) {
 
   // listar tweets
   listarTweets(tweets);
+
+  // Formatear el formulario
+  formularioElement.reset();
+}
+
+// Eliminar tweet
+function eliminarTweet(id) {
+  tweets = tweets.filter(tweet => tweet.id !== id);
+  listarTweets(tweets);
 }
 
 
@@ -50,3 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
   formularioElement.addEventListener('submit', init);
 });
 
+export {
+  eliminarTweet
+};
