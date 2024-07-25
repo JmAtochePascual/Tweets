@@ -6,6 +6,7 @@ import {
 } from './elemetos.js';
 import {
   generarId,
+  listarTweets,
   mostrarAlerta,
   validarTweet
 } from './funciones.js';
@@ -38,6 +39,9 @@ function init(e) {
   // Agregar tweet al array de tweets
   tweets = [...tweets, tweet.getTweet()];
 
+
+  // listar tweets
+  listarTweets(tweets);
 }
 
 

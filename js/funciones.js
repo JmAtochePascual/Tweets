@@ -32,11 +32,36 @@ const generarId = () => Math.random().toString(36).substring(2) + Date.now().toS
 // Listar tweets en pantalla
 const listarTweets = (tweets) => {
 
+  tweets.forEach(tweet => {
+    const { titulo, id } = tweet;
+
+    // Crear elementos 
+    const li = document.createElement('li');
+    li.classList.add('li');
+
+    const tituloTweet = document.createElement('p');
+    tituloTweet.textContent = titulo;
+
+
+    const btnEliminar = document.createElement('p');
+    btnEliminar.textContent = 'x';
+    btnEliminar.classList.add('borrar-tweet');
+    btnEliminar.href = '#';
+
+
+    // Agregar contenido al li
+    li.appendChild(tituloTweet);
+    li.appendChild(btnEliminar);
+
+    // Agregar al ul
+    listaTweetElement.appendChild(li);
+  });
 };
 
 
 export {
   validarTweet,
   mostrarAlerta,
-  generarId
+  generarId,
+  listarTweets
 }

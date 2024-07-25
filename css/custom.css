@@ -7,12 +7,20 @@ h2 {
     margin-top: 40px;
 }
 
-.borrar-tweet,
-.borrar-tweet:hover {
-    float: right;
+.li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.borrar-tweet {
     cursor: pointer;
     color: red;
     font-weight: bold;
+}
+
+.borrar-tweet:hover {
+    transform: scale(2);
+    transition: .3s transform ease-in-out;
 }
 
 .error {
