@@ -3,7 +3,10 @@ import {
   tweetInputElement,
   formularioElement
 } from './elemetos.js';
-import { validarTweet } from './funciones.js';
+import {
+  mostrarAlerta,
+  validarTweet
+} from './funciones.js';
 
 // Funcion que inicializa la aplicacion
 function init(e) {
@@ -15,8 +18,16 @@ function init(e) {
   // Verificar tweet
   const esTweetValido = validarTweet(tituloTweet);
 
+
+  // Mostrar mensaje de error si el tweet no es valido
+  if (!esTweetValido) {
+    mostrarAlerta('El tweet no puede estar vacio');
+    return;
+  }
 }
 
+
+// Eventos
 document.addEventListener('DOMContentLoaded', () => {
   formularioElement.addEventListener('submit', init);
 });
