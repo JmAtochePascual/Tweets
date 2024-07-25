@@ -1,4 +1,4 @@
-import { formularioElement } from "./elemetos.js";
+import { formularioElement, listaTweetElement } from "./elemetos.js";
 
 
 // Verificar tweet
@@ -24,10 +24,15 @@ const mostrarAlerta = (mensaje) => {
   setTimeout(() => {
     mensajeError.remove();
   }, 3000);
-}
+};
 
 // Generar un id unico
 const generarId = () => Math.random().toString(36).substring(2) + Date.now().toString(36);
+
+// Listar tweets en pantalla
+const listarTweets = (tweets) => {
+
+};
 
 
 export {

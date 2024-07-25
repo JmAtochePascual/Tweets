@@ -10,6 +10,10 @@ import {
   validarTweet
 } from './funciones.js';
 
+// Variables
+let tweets = [];
+
+
 // Funcion que inicializa la aplicacion
 function init(e) {
   e.preventDefault();
@@ -29,6 +33,10 @@ function init(e) {
 
   // Crear tweet
   const tweet = new Tweet(tituloTweet, generarId());
+
+
+  // Agregar tweet al array de tweets
+  tweets = [...tweets, tweet.getTweet()];
 
 }
 
