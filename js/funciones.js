@@ -26,8 +26,12 @@ const mostrarAlerta = (mensaje) => {
   }, 3000);
 }
 
+// Generar un id unico
+const generarId = () => Math.random().toString(36).substring(2) + Date.now().toString(36);
+
 
 export {
   validarTweet,
-  mostrarAlerta
+  mostrarAlerta,
+  generarId
 }

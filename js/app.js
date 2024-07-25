@@ -1,9 +1,11 @@
+import Tweet from './Tweet.js';
 import {
   listaTweetElement,
   tweetInputElement,
   formularioElement
 } from './elemetos.js';
 import {
+  generarId,
   mostrarAlerta,
   validarTweet
 } from './funciones.js';
@@ -24,6 +26,10 @@ function init(e) {
     mostrarAlerta('El tweet no puede estar vacio');
     return;
   }
+
+  // Crear tweet
+  const tweet = new Tweet(tituloTweet, generarId());
+
 }
 
 
