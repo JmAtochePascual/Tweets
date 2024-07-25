@@ -32,6 +32,9 @@ const generarId = () => Math.random().toString(36).substring(2) + Date.now().toS
 // Listar tweets en pantalla
 const listarTweets = (tweets) => {
 
+  // Limpiar html
+  limpiarHtml();
+
   tweets.forEach(tweet => {
     const { titulo, id } = tweet;
 
@@ -58,6 +61,13 @@ const listarTweets = (tweets) => {
   });
 };
 
+
+// Limpiar html
+const limpiarHtml = () => {
+  while (listaTweetElement.firstChild) {
+    listaTweetElement.removeChild(listaTweetElement.firstChild);
+  }
+};
 
 export {
   validarTweet,
