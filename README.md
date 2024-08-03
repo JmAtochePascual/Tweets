@@ -55,6 +55,6 @@ Este proyecto está bajo la licencia [MIT](https://opensource.org/licenses/MIT).
 
 ## 🌐 Ver Proyecto en la WEB
 
-Puedes ver el proyecto en funcionamiento [aquí](https://jmatochepacual.github.io/Tweets/).
+Puedes ver el proyecto en funcionamiento [aquí](https://jmatochepascual.github.io/Tweets/).
 
 Todos los derechos reservados Gestor de Tweets 2024 ©.
