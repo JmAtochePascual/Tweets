@@ -24,11 +24,12 @@ h2 {
 }
 
 .error {
-    background-color: red;
     text-align: center;
-    padding: 10px;
-    text-transform: uppercase;
-    font-weight: bold;
+    padding: 8px;
     margin: 0 auto;
-    color: white;
+    color: rgb(224, 23, 23);
+}
+
+.no-tweets {
+    text-align: center;
 }

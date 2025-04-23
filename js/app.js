@@ -1,73 +1,90 @@
-import Tweet from './Tweet.js';
-import {
-  tweetInputElement,
-  formularioElement
-} from './elemetos.js';
-import {
-  generarId,
-  listarTweets,
-  mostrarAlerta,
-  validarTweet,
-  actualizarLocalStorage
-} from './funciones.js';
+import Tweets from './Tweets.js';
 
-// Variables 
-let tweets = JSON.parse(localStorage.getItem('tweets')) || [];
+const tweetInputElement = document.querySelector('#tweet');
+const listaTweetElement = document.querySelector('#lista-tweets');
+const formularioElement = document.querySelector('#formulario');
+const tweets = new Tweets();
 
+function addTweet(event) {
+  event.preventDefault();
 
-// Funcion que inicializa la aplicacion
-function init(e) {
-  e.preventDefault();
+  const text = tweetInputElement.value.trim();
 
-  // Capturar el valor del input
-  const tituloTweet = tweetInputElement.value.trim();
-
-  // Verificar tweet
-  const esTweetValido = validarTweet(tituloTweet);
-
-
-  // Mostrar mensaje de error si el tweet no es valido
-  if (!esTweetValido) {
-    mostrarAlerta('El tweet no puede estar vacio');
+  if (!text) {
+    showError('El tweet no puede estar vacio');
     return;
-  }
+  };
 
-  // Crear tweet
-  const tweet = new Tweet(tituloTweet, generarId());
+  tweets.addTweet({ id: generateID(), text, });
 
+  resetForm();
 
-  // Agregar tweet al array de tweets
-  tweets = [...tweets, tweet.getTweet()];
-
-  // Actualizar local storage
-  actualizarLocalStorage(tweets);
-
-
-  // listar tweets
-  listarTweets(tweets);
-
-  // Formatear el formulario
-  formularioElement.reset();
-}
-
-
-// Eliminar tweet
-function eliminarTweet(id) {
-  tweets = tweets.filter(tweet => tweet.id !== id);
-  listarTweets(tweets);
-
-  // Actualizar local storage
-  actualizarLocalStorage(tweets);
-}
-
-
-// Eventos
-document.addEventListener('DOMContentLoaded', () => {
-  formularioElement.addEventListener('submit', init);
-  listarTweets(tweets);
-});
-
-
-export {
-  eliminarTweet
+  showTweetsInHTML();
 };
+
+const showError = (mesasge) => {
+
+  const errorElementExist = document.querySelector('.error');
+
+  if (errorElementExist) return;
+
+  const errorElement = document.createElement('p');
+  errorElement.textContent = mesasge;
+  errorElement.classList.add('error');
+  formularioElement.appendChild(errorElement);
+
+  setTimeout(() => {
+    errorElement.remove();
+  }, 3000);
+};
+
+const showTweetsInHTML = () => {
+
+  cleanListTweetsHTML();
+
+  tweets.tweets.forEach(tweet => {
+
+    const li = document.createElement('li');
+    li.classList.add('li');
+
+    const textTweetElement = document.createElement('p');
+    textTweetElement.textContent = tweet.text;
+
+    const btnDeleteElement = document.createElement('p');
+    btnDeleteElement.textContent = 'x';
+    btnDeleteElement.classList.add('borrar-tweet');
+    btnDeleteElement.href = '#';
+    btnDeleteElement.onclick = (event) => {
+      event.preventDefault();
+      tweets.removeTweet(tweet.id);
+      showTweetsInHTML();
+    }
+
+    li.appendChild(textTweetElement);
+    li.appendChild(btnDeleteElement);
+
+    listaTweetElement.appendChild(li);
+  });
+
+  updateLocalStorage();
+};
+
+const cleanListTweetsHTML = () => {
+  while (listaTweetElement.firstChild) {
+    listaTweetElement.removeChild(listaTweetElement.firstChild);
+  };
+};
+
+const updateLocalStorage = () => localStorage.setItem('tweets', JSON.stringify(tweets.tweets));
+
+const generateID = () => Math.random().toString(36).substring(2) + Date.now().toString(36);
+
+const resetForm = () => {
+  tweetInputElement.value = '';
+  tweetInputElement.focus();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  showTweetsInHTML();
+  formularioElement.addEventListener('submit', addTweet);
+});
